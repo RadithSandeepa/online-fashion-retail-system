@@ -2,20 +2,28 @@
 
 import { useState } from "react";
 
-const Add = () => {
-  const [quantity, setQuantity] = useState(1);
+const Add = ({
+    productId,
+    variantId,
+    stockNumber,
+  }: {
+    productId: string;
+    variantId: string;
+    stockNumber: number;
+  }) => {
+    const [quantity, setQuantity] = useState(1);
 
-  //TEMPORARY
-  const stock = 4;
+    // //TEMPORARY
+    // const stock = 4;
 
-  const handleQuantity = (type: "i" | "d") => {
-    if (type === "d" && quantity > 1) {
-      setQuantity((prev) => prev - 1);
-    }
-    if (type === "i" && quantity < stock) {
-      setQuantity((prev) => prev + 1);
-    }
-  };
+    const handleQuantity = (type: "i" | "d") => {
+      if (type === "d" && quantity > 1) {
+        setQuantity((prev) => prev - 1);
+      }
+      if (type === "i" && quantity < stockNumber) {
+        setQuantity((prev) => prev + 1);
+      }
+    };
 
   return (
     <div className="flex flex-col gap-4">
@@ -34,16 +42,16 @@ const Add = () => {
             <button
               className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
               onClick={() => handleQuantity("i")}
-              disabled={quantity===stock}
+              disabled={quantity===stockNumber}
             >
               +
             </button>
           </div>
-          {stock < 1 ? (
+          {stockNumber < 1 ? (
             <div className="text-xs">Product is out of stock</div>
           ) : (
             <div className="text-xs">
-              Only <span className="text-orange-500">{stock} items</span>{" "}
+              Only <span className="text-orange-500">{stockNumber} items</span>{" "}
               left!
               <br /> {"Don't"} miss it
             </div>
